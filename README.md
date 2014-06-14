@@ -1,4 +1,4 @@
-This template creates a HTML5 app using the PhoneGap framework. The app is designed to retrieve and parse a webservice written in PHP. 
+This template creates a HTML5 app that is designed to retrieve and parse a webservice written in PHP. It can then be converted to an Android app using the Phonegap build service.
 
 The PHP webservice contains a list of category names, website links and a title. The category names and website links are separated by a semi-colon (;), and each category name, and each website link are separated by a comma (,).
 
