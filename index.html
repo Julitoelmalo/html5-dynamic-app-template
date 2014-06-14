@@ -24,18 +24,18 @@
     
     <script>
 	
-	// The default news feeds
+	// The default feeds
 	var feedsDefault = "Category 1,Category 2;http://link1.com,http://link2.com,Title";
 	
 	
-	// The stored news feeds
+	// The stored feeds
 	var feedsStored = localStorage.feeds;
 
 
-		// Check whether news feeds stored in local storage
+		// Check whether feeds stored in local storage
 		if (feedsStored != null) 
 	
-			{var feeds = feedsStored;} // If so, use the stored data to create news feeds
+			{var feeds = feedsStored;} // If so, use the stored data to create feeds
  
 		else
 	
@@ -43,11 +43,11 @@
 	
 		
 	
-	// Once list is determined (i.e. stored or default), slice news feeds into variables
+	// Once list is determined (i.e. stored or default), slice feeds into variables
 	var categories = feeds.split(";");
-	var categoriesList = categories[0].split(","); // Creates list of categories from first half of newsfeeds list
+	var categoriesList = categories[0].split(","); // Creates list of categories from first half of feeds list
 	var maxIndex = categoriesList.length; // Determine how many categories are in the list
-	var linksList = categories[1].split(","); // Creates list of categories from second half of newsfeeds list
+	var linksList = categories[1].split(","); // Creates list of categories from second half of feeds list
 	var title = linksList[maxIndex]; // The location is appended onto end of second list
 	
 	</script>
@@ -117,7 +117,7 @@
 			// Save new feeds list to local storage
 			localStorage.feeds = data;
 			
-			// Compare news to old, and if different (i.e. not equal), then refresh screen - the new list items should display
+			// Compare new to old, and if different (i.e. not equal), then refresh screen - the new list items should display
 			if (data != feeds) 
 					{location.reload();}
 			
