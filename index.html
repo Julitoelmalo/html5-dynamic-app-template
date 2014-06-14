@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+	<meta charset="utf-8" />
+  	<meta name="viewport" content="width=device-width" />
+    
+  	<title>Links</title>
+
+  	<link rel="stylesheet" href="styles.css" />
+  	<link rel="stylesheet" href="css/normalize.css" />
+  	<link rel="stylesheet" href="css/foundation.css" />
+  	<link href='http://fonts.googleapis.com/css?family=Advent+Pro:200' rel='stylesheet' type='text/css'>
+    
+    
+    <script>
+	// Include Zepto if supported by browser, otherwise load jQuery
+	// Include here as need for checking local storage
+  	document.write('<script src=' +
+  	('__proto__' in {} ? 'js/vendor/zepto' : 'js/vendor/jquery') +
+  	'.js><\/script>')
+  	</script>
+    
+    
+    <script>
+	
+	// The default news feeds
+	var feedsDefault = "Category 1,Category 2;http://link1.com,http://link2.com,Title";
+	
+	
+	// The stored news feeds
+	var feedsStored = localStorage.feeds;
+
+
+		// Check whether news feeds stored in local storage
+		if (feedsStored != null) 
+	
+			{var feeds = feedsStored;} // If so, use the stored data to create news feeds
+ 
+		else
+	
+			{var feeds = feedsDefault;} // If not, use default hard-coded list
+	
+		
+	
+	// Once list is determined (i.e. stored or default), slice news feeds into variables
+	var categories = feeds.split(";");
+	var categoriesList = categories[0].split(","); // Creates list of categories from first half of newsfeeds list
+	var maxIndex = categoriesList.length; // Determine how many categories are in the list
+	var linksList = categories[1].split(","); // Creates list of categories from second half of newsfeeds list
+	var title = linksList[maxIndex]; // The location is appended onto end of second list
+	
+	</script>
+
+</head>
+
+<body style="background-color: #0d0e26;">
+
+  	<nav class="top-bar">
+		<h3 style="color:white;margin-left:auto;margin-right:auto;text-align:center;"><script>document.write(title);</script></h3>
+  	</nav>
+
+ 	<header class="myhead">
+ 		<div class ="row">
+ 			<div class="twelve columns">
+
+ 				<h1>&nbsp;</h1>
+ 				<h4>&nbsp;</h4>
+
+ 			</div>
+ 		</div>
+ 	</header>
+ 
+ 
+ 	<div class="main" class="dark">
+    <div class="row">
+
+	<script>
+	
+	// Create buttons based on variables
+	// Each category is matched to a link
+	// Process repeats for as many times as there is categories (based on the variable maxIndex)
+	// Note special syntax for opening links - this is only method to allow PhoneGap to open links in external Android browser
+	for (var i=0; i<maxIndex; i++)
+   		{
+ 
+ 		document.write('<div class="small-6 large-3 columns"><a href="#" class="button round" style="width:100%;" onclick=\'navigator.app.loadUrl("');
+		document.write(linksList[i]);
+		document.write('", {openExternal : true})\';>');
+		document.write(categoriesList[i]);
+		document.write('</a></div>');
+		
+   		}
+	
+	</script>
+
+	</div>
+ 	</div>
+
+
+  	<script src="js/vendor/custom.modernizr.js"></script>
+  	<script src="phonegap.js">//Include PhoneGap script</script>
+  
+  	<script src="js/foundation.min.js"></script>
+
+  	<script>
+    $(document).foundation();
+  	</script>
+    
+    
+    <script>
+	// Asynchronously load new feeds list
+	$(document).ready(function() {
+		$.get( "feeds.php", function( data ) {
+			
+			
+			// Save new feeds list to local storage
+			localStorage.feeds = data;
+			
+			// Compare news to old, and if different (i.e. not equal), then refresh screen - the new list items should display
+			if (data != feeds) 
+					{location.reload();}
+			
+		});
+	}); // end ready
+	
+	</script>
+  
+</body>
+</html>
